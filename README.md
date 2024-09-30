@@ -34,28 +34,30 @@ Since the focus of our experiment is on handling tweets with negative emotions, 
 ## Project Structure
 
 1. model-training.py # Script for training the empathy classification model
-2.empathy_model.py # Model definition (Epitome RoBERTa-based classifier)
-3.app.py # Flask application for web interface and model inference
-4.index.html # HTML form for user input (seeker and response)
-5.result.html # HTML page for displaying empathy prediction results
-6.labeled_csv.csv # CSV file containing training data (seeker, response, empathy labels)
-7.empathy_classifier_model.pth # Trained model weights (generated after training)
-8.base-model-no-training.py #Just a simple file for testing the untrained Epitome model, which is separate from the other files, using the same RoBERTa classifier based model, but untrained, it can also be used, and we've done some training on it.
+2. empathy_model.py # Model definition (Epitome RoBERTa-based classifier)
+3. app.py # Flask application for web interface and model inference
+4. index.html # HTML form for user input (seeker and response)
+5. result.html # HTML page for displaying empathy prediction results
+6. labeled_csv.csv # CSV file containing training data (seeker, response, empathy labels)
+7. empathy_classifier_model.pth # Trained model weights (generated after training)
+8. base-model-no-training.py #Just a simple file for testing the untrained Epitome model, which is separate from the other files, using the same RoBERTa classifier based model, but untrained, it can also be used, and we've done some training on it.
+9. 705countAllMood.py  #Count all types of labels.
+10. 705pickDA_mood.py  #select all data with correct label.
 
 ## Data Format
 The labeled_csv.csv file should contain the following columns:
-1.seeker: The seeker's text
-2.response: The response text (may have multiple entries)
-3.label1 and label2: Two annotated empathy labels by group members (used to compute the average for training)
+1. seeker: The seeker's text
+2. response: The response text (may have multiple entries)
+3. label1 and label2: Two annotated empathy labels by group members (used to compute the average for training)
 The responses in the CSV file are split based on numeric markers like 1., 2., etc.
 
 ##  Model Training
 We trained the empathy classification model using the model-training.py script. This script reads the labeled_csv.csv file, processes the data, and trains a RoBERTa-based classifier.
 
 ### How It Works:
-1.Data Processing:The script loads the CSV file, splits the responses into individual entries (if they are marked with numbers), and computes the average of two annotated labels by group members.
-2.Model:The model is based on the RobertaModel from Hugging Face and uses a fully connected layer to classify the empathy level into 3 classes (No empathy, Low empathy, High empathy).
-3.Training:The model is trained using cross-entropy loss and the Adam optimizer with a learning rate of 1e-5.
+1. Data Processing:The script loads the CSV file, splits the responses into individual entries (if they are marked with numbers), and computes the average of two annotated labels by group members.
+2. Model:The model is based on the RobertaModel from Hugging Face and uses a fully connected layer to classify the empathy level into 3 classes (No empathy, Low empathy, High empathy).
+3. Training:The model is trained using cross-entropy loss and the Adam optimizer with a learning rate of 1e-5.
 The trained model weights are saved as empathy_classifier_model.pth.
 ####To Train the Model:
 Use terminal and input: python model-training.py
@@ -66,11 +68,11 @@ Once the model is trained,it can use the Flask web interface to make predictions
 Inference Script: app.py
 
 ### How It Works:
-1.Frontend (HTML Forms):
+1. Frontend (HTML Forms):
 The user inputs the seeker and response text on the index.html form.
-2.Backend (Flask):
+2. Backend (Flask):
 The app.py script takes the input from the form, tokenizes it using RoBERTa's tokenizer, and passes it to the trained model to predict the empathy level.
-3.Prediction Results:
+3. Prediction Results:
 The prediction result is displayed on result.html, showing the predicted empathy level and the probabilities for each class.
 
 To Run the Flask Application:
@@ -78,10 +80,10 @@ Use terminal and input: python app.py
 Then, open a browser and navigate to http://127.0.0.1:5000/ to access the application.
 
 ### Example
-1.Navigate to http://127.0.0.1:5000/.
-2.Enter the seeker text and response text in the input boxes.
-3.Click the "Predict Empathy Level" button.
-4.The application will display the predicted empathy level (No empathy, Low empathy, High empathy) along with the model's confidence scores for each class.
+1. Navigate to http://127.0.0.1:5000/.
+2. Enter the seeker text and response text in the input boxes.
+3. Click the "Predict Empathy Level" button.
+4. The application will display the predicted empathy level (No empathy, Low empathy, High empathy) along with the model's confidence scores for each class.
 
 ## Customization -------- Adjusting Hyperparameters
 You can adjust the following parameters in the model-training.py script for better performance:
@@ -94,13 +96,13 @@ train_model(model, dataloader, criterion, optimizer, num_epochs=10)
 
 ## Complete steps to run the code:
 
-1.Install modules and dependencies:
+1. Install modules and dependencies:
 
 pip install pandas torch transformers flask
 
-2.Input python model-training.py in the command line(or just run it,when it finish will print The model is saved as 'empathy_classifier_model.pth')  to start training the model. After completion, the trained model will be generated and saved (The training process may take a while.Don't worry).
+2. Input python model-training.py in the command line(or just run it,when it finish will print The model is saved as 'empathy_classifier_model.pth')  to start training the model. After completion, the trained model will be generated and saved (The training process may take a while.Don't worry).
 
-3.Type python app.py in the command line(or just run it ). Open http://127.0.0.1:5000/ in your local browser
+3. Type python app.py in the command line(or just run it ). Open http://127.0.0.1:5000/ in your local browser
 
 4. The remaining steps are to enter the dialog, click the button, and get the result!
    
