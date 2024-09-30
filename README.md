@@ -31,6 +31,34 @@ Since the focus of our experiment is on handling tweets with negative emotions, 
 3. **Sampling for the Experiment**:  
    To conduct the experiment, we randomly selected **50 tweets labeled as `depressed`** and **50 tweets labeled as `anxious`** from the filtered data for model training and testing.
 
+### Ollama Visualization UI Code
+
+This project contains two Python files: `streamlit-xlsx.py` and `rag0.py`. It provides a visual interface using Streamlit, combined with LangChain and the Mistral model, to query Excel data.
+
+#### Environment Setup
+1. **Download and Install Ollama:**  
+[Ollama 官方网站](https://ollama.com)  
+After installation, run the following command in the terminal to pull the Mistral-7B model:  
+`ollama pull mistral`
+2. **Start Ollama Server:**  
+`ollama serve`
+3. **Run Mistral Model:**  
+`ollama run mistral`
+4. **Install Microsoft C++ Build Tools:**  
+Before installing the dependencies, install `Microsoft C++ Build Tools`. During the installation, ensure to select the "Desktop development with C++" workload. After completing the installation, proceed with installing `fastembed`.
+5. **Run the Project:**  
+Open the project in a Python IDE, ensure that the Python version is 3.8 or 3.9, and then start the Streamlit application with the following command: `streamlit run streamlit-xlsx.py`.
+
+**System Requirements**  
+Python Version: 3.8 or 3.9  
+**Dependencies:**  
+streamlit  
+streamlit_chat  
+pandas  
+langchain_community  
+fastembed  
+chromadb
+
 ## Project Structure
 
 1. model-training.py # Script for training the empathy classification model
@@ -43,6 +71,8 @@ Since the focus of our experiment is on handling tweets with negative emotions, 
 8. base-model-no-training.py #Just a simple file for testing the untrained Epitome model, which is separate from the other files, using the same RoBERTa classifier based model, but untrained, it can also be used, and we've done some training on it.
 9. 705countAllMood.py  #Count all types of labels.
 10. 705pickDA_mood.py  #select all data with correct label.
+11. streamlit-xlsx.py  #This file is the frontend of the project. It builds an interactive interface using Streamlit, allowing users to upload Excel files and query their data.
+12. rag0.py  #This file defines the ChatXLSX class, which handles Excel data processing and interacts with the Mistral model.
 
 ## Data Format
 The labeled_csv.csv file should contain the following columns:
